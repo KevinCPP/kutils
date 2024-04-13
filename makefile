@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Iinclude -Iinclude/algorithms -std=c11
+CFLAGS = -Wall -Iinclude -Iinclude/algorithms -Iinclude/data_structures -std=c11
 LDFLAGS =
 SRCDIR = src
 OBJDIR = obj
