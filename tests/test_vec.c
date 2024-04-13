@@ -101,12 +101,31 @@ void test_get_data_ptr() {
     for (size_t i = 0; i < len; i++) {
         int vec_at_i = *((int*)ku_vec_get(vec, i));
         assert(vec_at_i == myarr[i]);
-        printf("%d ", vec_at_i);
+//        printf("%d ", vec_at_i);
     }
-    printf("\n");
+//    printf("\n");
 
     ku_vec_destroy(&vec);
     printf("SUCCESS! END OF test_get_data_ptr()\n\n");
+}
+
+void test_pop() {
+    ku_vec* vec = ku_vec_create(sizeof(int));
+    int myarr[10] = {1, 2, 3, 8, 6, 7, 5, 3, 0, 9};
+    ku_vec_append(vec, myarr, 10);
+    //pop 2 elements
+    ku_vec_pop(vec);
+    ku_vec_pop(vec);
+    
+    size_t len = ku_vec_length(vec);
+    assert(len == 8);
+    for (size_t i = 0; i < len; i++) {
+        int vec_at_i = *((int*)ku_vec_get(vec, i));
+        assert(vec_at_i == myarr[i]);
+    }
+    
+    ku_vec_destroy(&vec);
+    printf("SUCCESS! END OF test_pop()\n\n");
 }
 
 int main() {
@@ -114,6 +133,7 @@ int main() {
     test_set();
     test_push();
     test_get_data_ptr();
+    test_pop();
     return 0;
 }
 
