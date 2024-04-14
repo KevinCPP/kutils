@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "swap.h"
+#include "ku_swap.h"
 
 void ku_generic_swap(void* a, void* b, size_t size) {
     if (size <= MAX_STACK_BUFFER) {

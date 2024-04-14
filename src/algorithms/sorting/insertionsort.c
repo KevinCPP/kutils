@@ -1,5 +1,5 @@
-#include "sorting.h"
-#include "swap.h"
+#include "ku_sorting.h"
+#include "ku_swap.h"
 
 void ku_insertionsort(void* array, size_t length, size_t element_size, int (*cmp)(void* a, void* b)) {
     unsigned char* arr = (unsigned char*)array;

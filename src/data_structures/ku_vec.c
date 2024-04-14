@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "vec.h"
+#include "ku_vec.h"
 
 // ku_vec underlying implementation
 typedef struct ku_vec {
