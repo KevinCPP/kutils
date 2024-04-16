@@ -7,9 +7,9 @@
 // stack rather than the heap for any data types that are <= 256 bytes
 #define MAX_STACK_BUFFER 256
 
-void ku_generic_swap(void* a, void* b, size_t size);
-void ku_generic_swap_heap(void* a, void* b, size_t size);
-void ku_generic_swap_stack(void* a, void* b, size_t size);
+int ku_generic_swap(void* a, void* b, size_t size);
+int ku_generic_swap_heap(void* a, void* b, size_t size);
+int ku_generic_swap_stack(void* a, void* b, size_t size);
 
 
 #endif

@@ -78,7 +78,7 @@ void test_push() {
     printf("SUCCESS! END OF test_push()\n\n");
 }
 
-int cmp_int(void* a, void* b) {
+int cmp_int(const void* a, const void* b) {
     int x = *(int*)a;
     int y = *(int*)b;
     if (x < y) return -1;
@@ -91,19 +91,19 @@ void test_get_data_ptr() {
     int myarr[10] = {1, 2, 3, 8, 6, 7, 5, 3, 0, 9};
     ku_vec_append(vec, myarr, 10);
    
-    ku_insertionsort((void*)myarr, 10, sizeof(int), cmp_int);    
+    ku_mergesort((void*)myarr, 10, sizeof(int), cmp_int);    
     
     void* vec_data = ku_vec_get_data_ptr(vec);
-    ku_insertionsort(vec_data, 10, sizeof(int), cmp_int);
+    ku_mergesort(vec_data, 10, sizeof(int), cmp_int);
 
     size_t len = ku_vec_length(vec);
     assert(len == 10);
     for (size_t i = 0; i < len; i++) {
         int vec_at_i = *((int*)ku_vec_get(vec, i));
         assert(vec_at_i == myarr[i]);
-//        printf("%d ", vec_at_i);
+        printf("%d ", vec_at_i);
     }
-//    printf("\n");
+    printf("\n");
 
     ku_vec_destroy(&vec);
     printf("SUCCESS! END OF test_get_data_ptr()\n\n");
