@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 
 #include "ku_vec.h"
@@ -14,7 +15,10 @@ void print_int_arr(const int* arr, size_t size) {
 void print_int_vec(const ku_vec* vec) {
     size_t len = ku_vec_length(vec);
     for (size_t i = 0; i < len; i++) {
-        printf("%d ", *((int*)ku_vec_get(vec, i)));
+        int* vec_at_i = (int*)ku_vec_get(vec, i);
+        printf("%d ", *vec_at_i);
+        free(vec_at_i);
+        vec_at_i = NULL;
     }
     printf("\n");
 }
@@ -30,8 +34,10 @@ void test_append() {
     assert(len == 20); // Check the length first
 
     for (size_t i = 0; i < len; i++) {
-        int vec_at_i = *((int*)ku_vec_get(vec, i));
-        assert(vec_at_i == expected[i]); // Validate each element
+        int* vec_at_i = (int*)ku_vec_get(vec, i);
+        assert(*vec_at_i == expected[i]); // Validate each element
+        free(vec_at_i);
+        vec_at_i = NULL;
     }
 
     ku_vec_destroy(&vec); // Free allocated memory
@@ -51,8 +57,10 @@ void test_set() {
     size_t len = ku_vec_length(vec);
     assert(len == 10);
     for (size_t i = 0; i < len; i++) {
-        int vec_at_i = *((int*)ku_vec_get(vec, i));
-        assert(vec_at_i == myarr[i]);
+        int* vec_at_i = (int*)ku_vec_get(vec, i);
+        assert(*vec_at_i == myarr[i]);
+        free(vec_at_i);
+        vec_at_i = NULL;
     }
 
     ku_vec_destroy(&vec);
@@ -70,8 +78,10 @@ void test_push() {
     size_t len = ku_vec_length(vec);
     assert(len == 100);
     for (size_t i = 0; i < len; i++) {
-        int vec_at_i = *((int*)ku_vec_get(vec, i));
-        assert(vec_at_i == myarr[i % 10]);
+        int* vec_at_i = (int*)ku_vec_get(vec, i);
+        assert(*vec_at_i == myarr[i % 10]);
+        free(vec_at_i);
+        vec_at_i = NULL;
     }
 
     ku_vec_destroy(&vec);
@@ -99,9 +109,11 @@ void test_get_data_ptr() {
     size_t len = ku_vec_length(vec);
     assert(len == 10);
     for (size_t i = 0; i < len; i++) {
-        int vec_at_i = *((int*)ku_vec_get(vec, i));
-        assert(vec_at_i == myarr[i]);
-        printf("%d ", vec_at_i);
+        int* vec_at_i = (int*)ku_vec_get(vec, i);
+        assert(*vec_at_i == myarr[i]);
+        printf("%d ", *vec_at_i);
+        free(vec_at_i);
+        vec_at_i = NULL;
     }
     printf("\n");
 
@@ -115,13 +127,15 @@ void test_pop() {
     ku_vec_append(vec, myarr, 10);
     
     for (size_t i = 0; i < 64; i++)
-        ku_vec_pop(vec);
+        free(ku_vec_pop(vec));
 
     size_t len = ku_vec_length(vec);
     assert(len == 0);
     for (size_t i = 0; i < len; i++) {
-        int vec_at_i = *((int*)ku_vec_get(vec, i));
-        assert(vec_at_i == myarr[i]);
+        int* vec_at_i = (int*)ku_vec_get(vec, i);
+        assert(*vec_at_i == myarr[i]);
+        free(vec_at_i);
+        vec_at_i = NULL;
     }
     
     ku_vec_destroy(&vec);

@@ -21,4 +21,7 @@ size_t ku_vec_length(const ku_vec* vec);                      // retrieve the le
 void*  ku_vec_get_data_ptr(ku_vec* vec);                      // get the pointer to the underlying data array
 void*  ku_vec_pop(ku_vec* vec);                               // pop the top element off the vector
 
+//TODO:
+// add delete
+
 #endif
