@@ -29,5 +29,9 @@ int ku_generic_swap_heap(void* a, void* b, size_t size) {
     memcpy(temp, a, size);
     memcpy(a, b, size);
     memcpy(b, temp, size);
+    free(temp);
+    temp = NULL;
     return 0;
 }
+
+

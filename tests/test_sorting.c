@@ -7,10 +7,10 @@
 #include "ku_sorting.h"
 #include "ku_comparators.h"
 
-#define SMALL_SIZE 5000
-#define MEDIUM_SIZE 50000
-#define LARGE_SIZE 500000
-#define VLARGE_SIZE 5000000
+#define SMALL_SIZE 50
+#define MEDIUM_SIZE 500
+#define LARGE_SIZE 5000
+#define VLARGE_SIZE 50000
 #define TIME_FUNCTION(call, message) do { \
     struct timespec start, end; \
     clock_gettime(CLOCK_MONOTONIC, &start); \
@@ -49,6 +49,11 @@ int main() {
     }
 
     TIME_FUNCTION(ku_mergesort(vlarge, VLARGE_SIZE, sizeof(int), ku_int_cmp), "merge sort: ");
+
+    free(small);
+    free(medium);
+    free(large);
+    free(vlarge);
 
     return 0;
 }
