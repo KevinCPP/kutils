@@ -1,6 +1,5 @@
-src/algorithms/util/ku_comparators.lo: \
- src/algorithms/util/ku_comparators.c /usr/include/stdc-predef.h \
- include/algorithms/ku_comparators.h \
+algorithms/util/ku_comparators.lo: algorithms/util/ku_comparators.c \
+ /usr/include/stdc-predef.h ../include/algorithms/ku_comparators.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
@@ -14,7 +13,7 @@ src/algorithms/util/ku_comparators.lo: \
  /usr/include/bits/stdint-least.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdbool.h
 /usr/include/stdc-predef.h:
-include/algorithms/ku_comparators.h:
+../include/algorithms/ku_comparators.h:
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h:
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdint.h:
 /usr/include/stdint.h:

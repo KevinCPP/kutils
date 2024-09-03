@@ -1,5 +1,5 @@
 #! /bin/sh
-# Generated automatically by config.status (kutil) indev
+# Generated automatically by config.status (kutils) indev-0.1
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.
@@ -290,7 +290,7 @@ hardcode_into_libs=yes
 sys_lib_search_path_spec="/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1 /usr/lib /lib "
 
 # Detected run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib /usr/lib /opt/cuda/lib64 /opt/cuda/nvvm/lib64 /opt/cuda/extras/CUPTI/lib64 /opt/intel/oneapi/compiler/latest/lib /opt/intel/oneapi/compiler/2024.1/lib/ /opt/intel/oneapi/lib/intel64 /opt/intel/oneapi/compiler/latest/linux/compiler/lib/intel64 /usr/lib32 /usr/lib/libfakeroot "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib32 "
 
 # Explicit LT_SYS_LIBRARY_PATH set during ./configure time.
 configure_time_lt_sys_library_path=""

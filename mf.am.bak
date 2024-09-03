@@ -1,0 +1,54 @@
+# define project source directories
+SRCDIR = src
+ALGO_DIR = $(SRCDIR)/algorithms
+DS_DIR = $(SRCDIR)/data_structures
+
+ALGO_SRCS = $(ALGO_DIR)/sorting/ku_insertionsort.c \
+			$(ALGO_DIR)/sorting/ku_mergesort.c \
+			$(ALGO_DIR)/searching/ku_binarysearch.c \
+			$(ALGO_DIR)/util/ku_comparators.c \
+			$(ALGO_DIR)/util/ku_swap.c
+
+DS_SRCS = $(DS_DIR)/ku_vec.c
+
+ALL_SRCS = $(ALGO_SRCS) $(DS_SRCS)
+
+# combine all sources
+lib_libdsa_la_SOURCES = $(ALL_SRCS)
+
+# define shared library
+lib_LTLIBRARIES = lib/libdsa.la
+
+# Additional flags for linking shared
+lib_libdsa_la_LDFLAGS = -shared
+
+# include directories for the compiler
+AM_CFLAGS = -Wall -Iinclude -Iinclude/algorithms -Iinclude/data_structures -Iinclude/external -std=c11 -D_POSIX_C_SOURCE=200809L
+ACLOCAL_AMFLAGS = -I m4
+##### WILL REMOVE #####
+# Test Programs
+# TESTS = bin/check_sorting bin/check_swap bin/check_vec
+
+# since this is in the bin folder
+TESTS = bin/check_vec
+check_PROGRAMS = $(TESTS)
+# these need to be prefixed with `bin_` otherwise it will raise an error
+bin_check_vec_SOURCES = tests/check_vec.c
+bin_check_vec_CFLAGS = @check_CFLAGS@
+bin_check_vec_LDADD = lib/libdsa.a @CHECK_LIBS@
+
+# sources for test programs
+# bin_check_sorting_SOURCES = tests/check_sorting.c
+# bin_check_swap_SOURCES = tests/check_swap.c
+# bin_check_vec_SOURCES = tests/check_vec.c
+
+# Link test programs with the library
+# bin_check_sorting_LDADD = lib/libdsa.a
+# bin_check_swap_LDADD = lib/libdsa.a
+# bin_check_vec_LDADD = lib/libdsa.a
+
+# clean up files created during the build
+clean-local:
+	rm -rf $(TESTS)
+
+.PHONY: clean-local

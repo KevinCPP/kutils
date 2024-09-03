@@ -2,8 +2,8 @@
 #include <check.h>
 #include <stdlib.h>
 
-#include "ku_vec.h"
-#include "ku_sorting.h"
+#include "include/data_structures/ku_vec.h"
+#include "include/algorithms/ku_sorting.h"
 
 #define VALUES_LEN (size_t)10
 
@@ -153,6 +153,7 @@ START_TEST(test_pop)
         free(ku_vec_pop(vec));
 
     size_t len = ku_vec_length(vec);
+    // should be zero, set to 2 to intentionally fail
     ck_assert_msg(len == 0, "%sFAILED: ku_vec has incorrect length after pop operations! Expected: %lu, Found: %lu", prefix, (size_t)0, len);
     for (size_t i = 0; i < len; i++) {
         int* vec_at_i = (int*)ku_vec_get(vec, i);
@@ -166,7 +167,37 @@ START_TEST(test_pop)
 } 
 END_TEST
 
+Suite *vec_suite(void)
+{
+    Suite *s;
+    TCase *tc_core;
+
+    s = suite_create("ku_vec");
+    
+    // core test case
+    tc_core = tcase_create("Core");
+
+    tcase_add_test(tc_core, test_append);
+    tcase_add_test(tc_core, test_set);
+    tcase_add_test(tc_core, test_push);
+    tcase_add_test(tc_core, test_get_data_ptr);
+    tcase_add_test(tc_core, test_pop);
+    suite_add_tcase(s, tc_core);
+
+    return s;
+}
+
 int main() {
-    return 0;
+    int number_failed = 0;
+    Suite *s;
+    SRunner *sr;
+
+    s = vec_suite();
+    sr = srunner_create(s);
+
+    srunner_run_all(sr, CK_NORMAL);
+    number_failed = srunner_ntests_failed(sr);
+    srunner_free(sr);
+    return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 

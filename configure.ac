@@ -1,39 +1,44 @@
-### Prelude
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
 
-# Require mandatory autoconf initialization
-AC_INIT([kutil], [indev], [kevinncosby2@gmail.com])
-
-# AC_CONFIG_AUX_DIR([DIRECTORY]) Auxilary Scripts such as `install-sh`
-# and `depcomp` should be in `DIRECTORY`.
-AC_CONFIG_AUX_DIR([build-aux])
-AC_CONFIG_MACRO_DIRS([m4])
-
-# need to initialize automake as well
-AM_INIT_AUTOMAKE([foreign -Wall -Werror subdir-objects])
-
-# AC_CONFIG_SRCDIR(FILE) -- sanity check. FILE should be a source file, this
-# makes sure that `configure` is not run from "outer space".
-AC_CONFIG_SRCDIR([src/data_structures/ku_vec.c])
-
-### Program Checks
-# will check to ensure we have a C compiler, e.g. gcc
-AC_PROG_CC
+AC_PREREQ([2.72])
+AC_INIT([kutils], [indev-0.1], [kevinncosby2@gmail.com])
+AM_INIT_AUTOMAKE([foreign -Wall -Werror])
 AM_PROG_AR
-# AC_PROG_RANLIB
 LT_INIT
+AM_PATH_CHECK
+AC_CONFIG_SRCDIR([include/algorithms/ku_comparators.h])
+AC_CONFIG_HEADERS([config.h])
 
-# Checks for libraries
-# ...
-# Checks for header files
-# ...
-# Checks for typedefs, structures, and compiler characteristics
-# ...
-# Checks for library functions
-# ...
-# Output files
-# AC_CONFIG_HEADERS([config.h])
+# Checks for programs.
+AC_PROG_CC
 
-# will generate a makefile
-AC_CONFIG_FILES([Makefile])
-# outputs any config files
+# initializes libtools
+
+# Checks for libraries.
+
+# Checks for header files.
+AC_CHECK_HEADERS([stdint.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_TYPE_INT16_T
+AC_TYPE_INT32_T
+AC_TYPE_INT64_T
+AC_TYPE_INT8_T
+AC_TYPE_SIZE_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT32_T
+AC_TYPE_UINT64_T
+AC_TYPE_UINT8_T
+AC_CHECK_TYPES([ptrdiff_t])
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
+AC_CHECK_FUNCS([clock_gettime])
+
+AC_CONFIG_MACRO_DIRS([m4])
+AC_CONFIG_FILES([Makefile
+                 src/Makefile
+                 tests/Makefile])
 AC_OUTPUT

@@ -1,4 +1,4 @@
-src/algorithms/util/ku_swap.lo: src/algorithms/util/ku_swap.c \
+algorithms/util/ku_swap.lo: algorithms/util/ku_swap.c \
  /usr/include/stdc-predef.h /usr/include/stdlib.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
  /usr/include/features-time64.h /usr/include/bits/wordsize.h \
@@ -10,7 +10,7 @@ src/algorithms/util/ku_swap.lo: src/algorithms/util/ku_swap.c \
  /usr/include/bits/floatn.h /usr/include/bits/floatn-common.h \
  /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
  /usr/include/string.h /usr/include/bits/types/locale_t.h \
- /usr/include/bits/types/__locale_t.h include/algorithms/ku_swap.h
+ /usr/include/bits/types/__locale_t.h ../include/algorithms/ku_swap.h
 /usr/include/stdc-predef.h:
 /usr/include/stdlib.h:
 /usr/include/bits/libc-header-start.h:
@@ -32,4 +32,4 @@ src/algorithms/util/ku_swap.lo: src/algorithms/util/ku_swap.c \
 /usr/include/string.h:
 /usr/include/bits/types/locale_t.h:
 /usr/include/bits/types/__locale_t.h:
-include/algorithms/ku_swap.h:
+../include/algorithms/ku_swap.h:

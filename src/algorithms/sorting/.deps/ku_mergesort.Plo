@@ -1,8 +1,7 @@
-src/algorithms/sorting/ku_mergesort.lo: \
- src/algorithms/sorting/ku_mergesort.c /usr/include/stdc-predef.h \
- include/algorithms/ku_sorting.h \
+algorithms/sorting/ku_mergesort.lo: algorithms/sorting/ku_mergesort.c \
+ /usr/include/stdc-predef.h ../include/algorithms/ku_sorting.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h \
- include/algorithms/ku_swap.h /usr/include/stdio.h \
+ ../include/algorithms/ku_swap.h /usr/include/stdio.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
  /usr/include/features-time64.h /usr/include/bits/wordsize.h \
  /usr/include/bits/timesize.h /usr/include/sys/cdefs.h \
@@ -21,9 +20,9 @@ src/algorithms/sorting/ku_mergesort.lo: \
  /usr/include/bits/stdlib-float.h /usr/include/string.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h
 /usr/include/stdc-predef.h:
-include/algorithms/ku_sorting.h:
+../include/algorithms/ku_sorting.h:
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h:
-include/algorithms/ku_swap.h:
+../include/algorithms/ku_swap.h:
 /usr/include/stdio.h:
 /usr/include/bits/libc-header-start.h:
 /usr/include/features.h:
