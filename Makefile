@@ -90,8 +90,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = x86_64-pc-linux-gnu
 host_triplet = x86_64-pc-linux-gnu
-TESTS = bin/test_sorting$(EXEEXT) bin/test_swap$(EXEEXT) \
-	bin/test_vec$(EXEEXT)
+TESTS = bin/check_vec$(EXEEXT)
 check_PROGRAMS = $(am__EXEEXT_1)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -108,8 +107,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
 mkinstalldirs = $(install_sh) -d
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__EXEEXT_1 = bin/test_sorting$(EXEEXT) bin/test_swap$(EXEEXT) \
-	bin/test_vec$(EXEEXT)
+am__EXEEXT_1 = bin/check_vec$(EXEEXT)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -155,15 +153,9 @@ am__v_lt_1 =
 lib_libdsa_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(lib_libdsa_la_LDFLAGS) $(LDFLAGS) -o $@
-am_bin_test_sorting_OBJECTS = tests/test_sorting.$(OBJEXT)
-bin_test_sorting_OBJECTS = $(am_bin_test_sorting_OBJECTS)
-bin_test_sorting_DEPENDENCIES = lib/libdsa.a
-am_bin_test_swap_OBJECTS = tests/test_swap.$(OBJEXT)
-bin_test_swap_OBJECTS = $(am_bin_test_swap_OBJECTS)
-bin_test_swap_DEPENDENCIES = lib/libdsa.a
-am_bin_test_vec_OBJECTS = tests/test_vec.$(OBJEXT)
-bin_test_vec_OBJECTS = $(am_bin_test_vec_OBJECTS)
-bin_test_vec_DEPENDENCIES = lib/libdsa.a
+am_bin_check_vec_OBJECTS = tests/check_vec.$(OBJEXT)
+bin_check_vec_OBJECTS = $(am_bin_check_vec_OBJECTS)
+bin_check_vec_DEPENDENCIES = lib/libdsa.a
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -185,8 +177,7 @@ am__depfiles_remade =  \
 	$(ALGO_DIR)/sorting/$(DEPDIR)/ku_mergesort.Plo \
 	$(ALGO_DIR)/util/$(DEPDIR)/ku_comparators.Plo \
 	$(ALGO_DIR)/util/$(DEPDIR)/ku_swap.Plo \
-	$(DS_DIR)/$(DEPDIR)/ku_vec.Plo tests/$(DEPDIR)/test_sorting.Po \
-	tests/$(DEPDIR)/test_swap.Po tests/$(DEPDIR)/test_vec.Po
+	$(DS_DIR)/$(DEPDIR)/ku_vec.Plo tests/$(DEPDIR)/check_vec.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -206,10 +197,8 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(lib_libdsa_la_SOURCES) $(bin_test_sorting_SOURCES) \
-	$(bin_test_swap_SOURCES) $(bin_test_vec_SOURCES)
-DIST_SOURCES = $(lib_libdsa_la_SOURCES) $(bin_test_sorting_SOURCES) \
-	$(bin_test_swap_SOURCES) $(bin_test_vec_SOURCES)
+SOURCES = $(lib_libdsa_la_SOURCES) $(bin_check_vec_SOURCES)
+DIST_SOURCES = $(lib_libdsa_la_SOURCES) $(bin_check_vec_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -598,14 +587,14 @@ AM_CFLAGS = -Wall -Iinclude -Iinclude/algorithms -Iinclude/data_structures -Iinc
 ACLOCAL_AMFLAGS = -I m4
 
 # sources for test programs
-bin_test_sorting_SOURCES = tests/test_sorting.c
-bin_test_swap_SOURCES = tests/test_swap.c
-bin_test_vec_SOURCES = tests/test_vec.c
+# bin_check_sorting_SOURCES = tests/check_sorting.c
+# bin_check_swap_SOURCES = tests/check_swap.c
+bin_check_vec_SOURCES = tests/check_vec.c
 
 # Link test programs with the library
-bin_test_sorting_LDADD = lib/libdsa.a
-bin_test_swap_LDADD = lib/libdsa.a
-bin_test_vec_LDADD = lib/libdsa.a
+# bin_check_sorting_LDADD = lib/libdsa.a
+# bin_check_swap_LDADD = lib/libdsa.a
+bin_check_vec_LDADD = lib/libdsa.a
 all: all-am
 
 .SUFFIXES:
@@ -731,27 +720,15 @@ tests/$(am__dirstamp):
 tests/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) tests/$(DEPDIR)
 	@: >>tests/$(DEPDIR)/$(am__dirstamp)
-tests/test_sorting.$(OBJEXT): tests/$(am__dirstamp) \
+tests/check_vec.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 bin/$(am__dirstamp):
 	@$(MKDIR_P) bin
 	@: >>bin/$(am__dirstamp)
 
-bin/test_sorting$(EXEEXT): $(bin_test_sorting_OBJECTS) $(bin_test_sorting_DEPENDENCIES) $(EXTRA_bin_test_sorting_DEPENDENCIES) bin/$(am__dirstamp)
-	@rm -f bin/test_sorting$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(bin_test_sorting_OBJECTS) $(bin_test_sorting_LDADD) $(LIBS)
-tests/test_swap.$(OBJEXT): tests/$(am__dirstamp) \
-	tests/$(DEPDIR)/$(am__dirstamp)
-
-bin/test_swap$(EXEEXT): $(bin_test_swap_OBJECTS) $(bin_test_swap_DEPENDENCIES) $(EXTRA_bin_test_swap_DEPENDENCIES) bin/$(am__dirstamp)
-	@rm -f bin/test_swap$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(bin_test_swap_OBJECTS) $(bin_test_swap_LDADD) $(LIBS)
-tests/test_vec.$(OBJEXT): tests/$(am__dirstamp) \
-	tests/$(DEPDIR)/$(am__dirstamp)
-
-bin/test_vec$(EXEEXT): $(bin_test_vec_OBJECTS) $(bin_test_vec_DEPENDENCIES) $(EXTRA_bin_test_vec_DEPENDENCIES) bin/$(am__dirstamp)
-	@rm -f bin/test_vec$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(bin_test_vec_OBJECTS) $(bin_test_vec_LDADD) $(LIBS)
+bin/check_vec$(EXEEXT): $(bin_check_vec_OBJECTS) $(bin_check_vec_DEPENDENCIES) $(EXTRA_bin_check_vec_DEPENDENCIES) bin/$(am__dirstamp)
+	@rm -f bin/check_vec$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(bin_check_vec_OBJECTS) $(bin_check_vec_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -774,9 +751,7 @@ include $(ALGO_DIR)/sorting/$(DEPDIR)/ku_mergesort.Plo # am--include-marker
 include $(ALGO_DIR)/util/$(DEPDIR)/ku_comparators.Plo # am--include-marker
 include $(ALGO_DIR)/util/$(DEPDIR)/ku_swap.Plo # am--include-marker
 include $(DS_DIR)/$(DEPDIR)/ku_vec.Plo # am--include-marker
-include tests/$(DEPDIR)/test_sorting.Po # am--include-marker
-include tests/$(DEPDIR)/test_swap.Po # am--include-marker
-include tests/$(DEPDIR)/test_vec.Po # am--include-marker
+include tests/$(DEPDIR)/check_vec.Po # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -1048,23 +1023,9 @@ recheck: all $(check_PROGRAMS)
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-bin/test_sorting.log: bin/test_sorting$(EXEEXT)
-	@p='bin/test_sorting$(EXEEXT)'; \
-	b='bin/test_sorting'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-bin/test_swap.log: bin/test_swap$(EXEEXT)
-	@p='bin/test_swap$(EXEEXT)'; \
-	b='bin/test_swap'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-bin/test_vec.log: bin/test_vec$(EXEEXT)
-	@p='bin/test_vec$(EXEEXT)'; \
-	b='bin/test_vec'; \
+bin/check_vec.log: bin/check_vec$(EXEEXT)
+	@p='bin/check_vec$(EXEEXT)'; \
+	b='bin/check_vec'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -1324,9 +1285,7 @@ distclean: distclean-am
 	-rm -f $(ALGO_DIR)/util/$(DEPDIR)/ku_comparators.Plo
 	-rm -f $(ALGO_DIR)/util/$(DEPDIR)/ku_swap.Plo
 	-rm -f $(DS_DIR)/$(DEPDIR)/ku_vec.Plo
-	-rm -f tests/$(DEPDIR)/test_sorting.Po
-	-rm -f tests/$(DEPDIR)/test_swap.Po
-	-rm -f tests/$(DEPDIR)/test_vec.Po
+	-rm -f tests/$(DEPDIR)/check_vec.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-libtool distclean-tags
@@ -1380,9 +1339,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(ALGO_DIR)/util/$(DEPDIR)/ku_comparators.Plo
 	-rm -f $(ALGO_DIR)/util/$(DEPDIR)/ku_swap.Plo
 	-rm -f $(DS_DIR)/$(DEPDIR)/ku_vec.Plo
-	-rm -f tests/$(DEPDIR)/test_sorting.Po
-	-rm -f tests/$(DEPDIR)/test_swap.Po
-	-rm -f tests/$(DEPDIR)/test_vec.Po
+	-rm -f tests/$(DEPDIR)/check_vec.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

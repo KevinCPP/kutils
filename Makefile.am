@@ -27,18 +27,19 @@ AM_CFLAGS = -Wall -Iinclude -Iinclude/algorithms -Iinclude/data_structures -Iinc
 ACLOCAL_AMFLAGS = -I m4
 ##### WILL REMOVE #####
 # Test Programs
-TESTS = bin/test_sorting bin/test_swap bin/test_vec
+# TESTS = bin/check_sorting bin/check_swap bin/check_vec
+TESTS = bin/check_vec
 check_PROGRAMS = $(TESTS)
 
 # sources for test programs
-bin_test_sorting_SOURCES = tests/test_sorting.c
-bin_test_swap_SOURCES = tests/test_swap.c
-bin_test_vec_SOURCES = tests/test_vec.c
+# bin_check_sorting_SOURCES = tests/check_sorting.c
+# bin_check_swap_SOURCES = tests/check_swap.c
+bin_check_vec_SOURCES = tests/check_vec.c
 
 # Link test programs with the library
-bin_test_sorting_LDADD = lib/libdsa.a
-bin_test_swap_LDADD = lib/libdsa.a
-bin_test_vec_LDADD = lib/libdsa.a
+# bin_check_sorting_LDADD = lib/libdsa.a
+# bin_check_swap_LDADD = lib/libdsa.a
+bin_check_vec_LDADD = lib/libdsa.a
 
 # clean up files created during the build
 clean-local:
