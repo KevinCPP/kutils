@@ -5016,8 +5016,8 @@ esac
 
 
 
-macro_version='2.5.1-dirty'
-macro_revision='2.5.1'
+macro_version='2.5.2.1-2fe3a-dirty'
+macro_revision='2.5.2.1'
 
 
 
@@ -11999,7 +11999,28 @@ freebsd* | dragonfly* | midnightbsd*)
       need_version=yes
       ;;
   esac
+  case $host_cpu in
+    powerpc64)
+      # On FreeBSD bi-arch platforms, a different variable is used for 32-bit
+      # binaries.  See <https://man.freebsd.org/cgi/man.cgi?query=ld.so>.
+      cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+int test_pointer_size[sizeof (void *) - 5];
+
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
   shlibpath_var=LD_LIBRARY_PATH
+else case e in #(
+  e) shlibpath_var=LD_32_LIBRARY_PATH ;;
+esac
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+      ;;
+    *)
+      shlibpath_var=LD_LIBRARY_PATH
+      ;;
+  esac
   case $host_os in
   freebsd2.*)
     shlibpath_overrides_runpath=yes

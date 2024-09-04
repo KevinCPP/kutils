@@ -15,8 +15,8 @@ ALL_SRCS = $(ALGO_SRCS) $(DS_SRCS)
 
 # combine all sources
 libdsa_la_SOURCES = $(ALL_SRCS)
-# Additional flags for linking shared
-libdsa_la_LDFLAGS = -shared
+# Additional flags for linking shared (this might be redundant, automake does this by default)
+# libdsa_la_LDFLAGS = -shared
 
 # include directories for the compiler
 AM_CFLAGS = -Wall -I$(top_srcdir)/include \

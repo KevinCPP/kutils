@@ -37,8 +37,8 @@ available_tags=''
 # ### BEGIN LIBTOOL CONFIG
 
 # Which release of libtool.m4 was used?
-macro_version=2.5.1-dirty
-macro_revision=2.5.1
+macro_version=2.5.2.1-2fe3a-dirty
+macro_revision=2.5.2.1
 
 # Whether or not to build shared libraries.
 build_libtool_libs=yes
@@ -290,7 +290,7 @@ hardcode_into_libs=yes
 sys_lib_search_path_spec="/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1 /usr/lib /lib "
 
 # Detected run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib32 "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /opt/cuda/lib64 /opt/cuda/nvvm/lib64 /opt/cuda/extras/CUPTI/lib64 /opt/intel/oneapi/compiler/latest/lib /opt/intel/oneapi/compiler/2024.1/lib/ /opt/intel/oneapi/lib/intel64 /opt/intel/oneapi/compiler/latest/linux/compiler/lib/intel64 /usr/lib32 /usr/lib/libfakeroot "
 
 # Explicit LT_SYS_LIBRARY_PATH set during ./configure time.
 configure_time_lt_sys_library_path=""
@@ -505,7 +505,7 @@ func_cc_basename ()
 ## DO NOT EDIT - This file generated from ./build-aux/ltmain.in
 ##               by inline-source v2019-02-19.15
 
-# libtool (GNU libtool) 2.5.1-dirty
+# libtool (GNU libtool) 2.5.2.1-2fe3a-dirty
 # Provide generalized library-building support services.
 # Written by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 
@@ -534,8 +534,8 @@ func_cc_basename ()
 
 PROGRAM=libtool
 PACKAGE=libtool
-VERSION=2.5.1-dirty
-package_revision=2.5.1
+VERSION=2.5.2.1-2fe3a-dirty
+package_revision=2.5.2.1
 
 
 ## ------ ##
@@ -2718,7 +2718,7 @@ func_version ()
 # End:
 
 # Set a version string.
-scriptversion='(GNU libtool) 2.5.1-dirty'
+scriptversion='(GNU libtool) 2.5.2.1-2fe3a-dirty'
 
 
 # func_echo ARG...
@@ -2809,7 +2809,7 @@ include the following information:
        compiler:       $LTCC
        compiler flags: $LTCFLAGS
        linker:         $LD (gnu? $with_gnu_ld)
-       version:        $progname (GNU libtool) 2.5.1-dirty
+       version:        $progname (GNU libtool) 2.5.2.1-2fe3a-dirty
        automake:       `($AUTOMAKE --version) 2>/dev/null |$SED 1q`
        autoconf:       `($AUTOCONF --version) 2>/dev/null |$SED 1q`
 
@@ -7325,10 +7325,12 @@ func_mode_link ()
     xrpath=
     perm_rpath=
     temp_rpath=
+    temp_rpath_tail=
     thread_safe=no
     vinfo=
     vinfo_number=no
     weak_libs=
+    rpath_arg=
     single_module=$wl-single_module
     func_infer_tag $base_compile
 
@@ -8247,8 +8249,20 @@ func_mode_link ()
 
       # Now actually substitute the argument into the commands.
       if test -n "$arg"; then
-	func_append compile_command " $arg"
-	func_append finalize_command " $arg"
+	if test -n "$rpath_arg"; then
+          func_append finalize_rpath " ${arg##*,}"
+	  unset rpath_arg
+	else
+	  case $arg in
+          -Wl,-rpath,*)
+	    func_append finalize_rpath " ${arg##*,}";;
+          -Wl,-rpath)
+	    rpath_arg=1;;
+          *)
+            func_append compile_command " $arg"
+	    func_append finalize_command " $arg"
+	  esac
+        fi
       fi
     done # argument parsing loop
 
@@ -8899,7 +8913,10 @@ func_mode_link ()
 	      # Make sure the rpath contains only unique directories.
 	      case $temp_rpath: in
 	      *"$absdir:"*) ;;
-	      *) func_append temp_rpath "$absdir:" ;;
+              *) case $absdir in
+                 "$progdir/"*) func_append temp_rpath "$absdir:" ;;
+                 *)            func_append temp_rpath_tail "$absdir:" ;;
+                 esac
 	      esac
 	    fi
 
@@ -8911,7 +8928,9 @@ func_mode_link ()
 	    *)
 	      case "$compile_rpath " in
 	      *" $absdir "*) ;;
-	      *) func_append compile_rpath " $absdir" ;;
+	      *) case $absdir in
+                 "$progdir/"*) func_append compile_rpath " $absdir" ;;
+		 esac
 	      esac
 	      ;;
 	    esac
@@ -8985,7 +9004,9 @@ func_mode_link ()
 	    *)
 	      case "$compile_rpath " in
 	      *" $absdir "*) ;;
-	      *) func_append compile_rpath " $absdir" ;;
+	      *) case $absdir in
+                 "$progdir/"*) func_append compile_rpath " $absdir" ;;
+		 esac
 	      esac
 	      ;;
 	    esac
@@ -9346,6 +9367,8 @@ func_mode_link ()
 	  fi # link_all_deplibs != no
 	fi # linkmode = lib
       done # for deplib in $libs
+
+      func_append temp_rpath "$temp_rpath_tail"
       if test link = "$pass"; then
 	if test prog = "$linkmode"; then
 	  compile_deplibs="$new_inherited_linker_flags $compile_deplibs"
