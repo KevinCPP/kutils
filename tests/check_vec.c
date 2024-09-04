@@ -154,7 +154,7 @@ START_TEST(test_pop)
 
     size_t len = ku_vec_length(vec);
     // should be zero, set to 2 to intentionally fail
-    ck_assert_msg(len == 0, "%sFAILED: ku_vec has incorrect length after pop operations! Expected: %lu, Found: %lu", prefix, (size_t)0, len);
+    ck_assert_msg(len == 1, "%sFAILED: ku_vec has incorrect length after pop operations! Expected: %lu, Found: %lu", prefix, (size_t)0, len);
     for (size_t i = 0; i < len; i++) {
         int* vec_at_i = (int*)ku_vec_get(vec, i);
         ck_assert_msg(*vec_at_i == myarr[i], "%sFAILED: ku_vec has incorrect element after pop operations! Index: %lu, Expected: %d, Found: %d", prefix, i, myarr[i], *vec_at_i);

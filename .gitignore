@@ -21,4 +21,11 @@ missing
 stamp-h1
 ar-lib
 test-driver
-
+tests/test-suite.log
+src/.libs/
+src/libdsa.la
+src/**/.libs
+src/**/*.o
+src/**/*.lo
+tests/bin
+tests/*.o
