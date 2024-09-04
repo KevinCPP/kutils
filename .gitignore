@@ -29,3 +29,4 @@ src/**/*.o
 src/**/*.lo
 tests/bin
 tests/*.o
+tests/.deps/
