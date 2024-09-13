@@ -6,6 +6,7 @@
 #include "include/algorithms/ku_sorting.h"
 
 #define VALUES_LEN (size_t)10
+#define PREFIX(test_name) "[tests/check_vec.c:" test_name "] "
 
 void print_int_arr(const int* arr, size_t size) {
     for (size_t i = 0; i < size; i++) {
@@ -27,7 +28,7 @@ void print_int_vec(const ku_vec* vec) {
 
 START_TEST(test_append)
 {
-    const char* prefix = "[tests/check_vec.c:test_append] ";
+    const char* prefix = PREFIX("test_append");
 
     ku_vec* vec = ku_vec_create(sizeof(int));
     int values[VALUES_LEN] = {1, 2, 3, 8, 6, 7, 5, 3, 0, 9};
@@ -55,7 +56,7 @@ END_TEST
 
 START_TEST(test_set) 
 {
-    const char* prefix = "[tests/check_vec.c:test_set] ";
+    const char* prefix = PREFIX("test_set");
 
     ku_vec* vec = ku_vec_create(sizeof(int));
     int values[VALUES_LEN] = {1, 2, 3, 8, 6, 7, 5, 3, 0, 9};
@@ -81,7 +82,7 @@ END_TEST
 
 START_TEST(test_push) 
 {
-    const char* prefix = "[tests/check_vec.c:test_push] ";
+    const char* prefix = PREFIX("test_push");
     const size_t num_push_ops = 100;
 
     ku_vec* vec = ku_vec_create(sizeof(int));
@@ -116,7 +117,7 @@ int cmp_int(const void* a, const void* b) {
 
 START_TEST(test_get_data_ptr) 
 {
-    const char* prefix = "[tests/check_vec.c:test_get_data_ptr] ";
+    const char* prefix = PREFIX("test_get_data_ptr");
     ku_vec* vec = ku_vec_create(sizeof(int));
     int values[VALUES_LEN] = {1, 2, 3, 8, 6, 7, 5, 3, 0, 9};
     ku_vec_append(vec, values, VALUES_LEN);
@@ -144,7 +145,7 @@ END_TEST
 
 START_TEST(test_pop) 
 {
-    const char* prefix = "[tests/check_vec.c:test_pop] ";
+    const char* prefix = PREFIX("test_pop");
     ku_vec* vec = ku_vec_create(sizeof(int));
     int myarr[10] = {1, 2, 3, 8, 6, 7, 5, 3, 0, 9};
     ku_vec_append(vec, myarr, 10);

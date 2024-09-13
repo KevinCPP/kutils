@@ -1175,5 +1175,6 @@ config.status:1096: creating tests/Makefile
 config.status:1325: executing depfiles commands
 config.status:1402: cd tests       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
 make[2]: Entering directory '/home/knc/Documents/Programming/c_projects/kutil/tests'
+make[2]: Nothing to be done for 'am--depfiles'.
 make[2]: Leaving directory '/home/knc/Documents/Programming/c_projects/kutil/tests'
 config.status:1407: $? = 0

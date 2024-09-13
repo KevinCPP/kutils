@@ -22,6 +22,4 @@ size_t  ku_string_length(const ku_string* str);
 char*   ku_string_get_data_ptr(ku_string* str);
 char    ku_string_pop(ku_string* str);
 
-
-
 #endif

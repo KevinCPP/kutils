@@ -9,7 +9,8 @@ ALGO_SRCS = $(ALGO_DIR)/sorting/ku_insertionsort.c \
 			$(ALGO_DIR)/util/ku_comparators.c \
 			$(ALGO_DIR)/util/ku_swap.c
 
-DS_SRCS = $(DS_DIR)/ku_vec.c
+DS_SRCS = $(DS_DIR)/ku_vec.c \
+		  $(DS_DIR)/ku_string.c
 
 ALL_SRCS = $(ALGO_SRCS) $(DS_SRCS)
 

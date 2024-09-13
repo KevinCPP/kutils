@@ -35,6 +35,24 @@ void ku_vec_destroy(ku_vec** vec) {
     *vec = NULL;
 }
 
+static int ku_vec_ensure_capacity(ku_vec* vec, size_t new_length) {
+    if (new_length < vec->capacity)
+        return 0;
+
+    // keep increasing new capacity by powers of 2 until
+    // it has enough space for all of the new elements.
+    size_t new_cap = vec->capacity ? vec->capacity << 1 : 2;
+    while (new_cap < new_length) {
+        new_cap <<= 1;
+        
+        // check for an overflow
+        if (new_cap < vec->capacity)
+            return -1;
+    }
+    int success = ku_vec_reserve(vec, new_cap);
+    return success;
+}
+
 // set an element at index
 int ku_vec_set(ku_vec* vec, size_t index, void* element) {
     if (vec == NULL || element == NULL || vec->length <= index) {
@@ -56,24 +74,10 @@ int ku_vec_append(ku_vec* vec, void* arr, size_t len) {
     if (len == 0)
         return 0;
     
-    // determine if the vector needs to be expanded
-    if (vec->capacity <= vec->length + len) {
-        // keep increasing new capacity by powers of 2 until
-        // it has enough space for all of the new elements
-        size_t new_cap = vec->capacity ? vec->capacity << 1 : 2;
-        while (new_cap < vec->length + len) {
-            new_cap <<= 1;
-            // check for an overflow
-            if (new_cap < vec->capacity)
-                return -1;
-        }
-        
-        // reserve additional space
-        int success = ku_vec_reserve(vec, new_cap);
-        if (success != 0)
-            return -1;
+    if (ku_vec_ensure_capacity(vec, vec->length + len) != 0) {
+        return -1;
     }
-    
+
     // calculate offset to copy input data into the vector's data array
     char* vec_data = (char*)vec->data;
     char* input_data = (char*)arr;
@@ -127,13 +131,8 @@ int ku_vec_push(ku_vec* vec, void* element) {
         return -1;
     
     // check if the vector needs to be expanded
-    if (vec->capacity <= vec->length) {
-        size_t new_cap = vec->capacity ? vec->capacity << 1 : 2;
-        int success = ku_vec_reserve(vec, new_cap);
-        if (success != 0)
-            return -1;
-    }
-    
+    ku_vec_ensure_capacity(vec, vec->length + 1);
+
     // calculate where to copy new element
     char* data = (char*)vec->data;
     memcpy(data + (vec->length * vec->esize), element, vec->esize);
